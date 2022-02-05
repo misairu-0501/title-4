@@ -10,6 +10,7 @@ class User < ApplicationRecord
   #Userモデルに対して、PostCommentモデルが1:Nになるように関連付けをする
   has_many :post_comments, dependent: :destroy
 
+  #Userモデルに対して、Favoriteモデルが1:Nになるように関連付けをする
   has_many :favorites, dependent: :destroy
 
   #profile_imageという名前でActiveStorageでプロフィール画像を保存できるように設定

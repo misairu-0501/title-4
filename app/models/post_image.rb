@@ -8,7 +8,14 @@ class PostImage < ApplicationRecord
   #Post_Imageモデルに対して、PostCommentモデルが1:Nになるように関連付けをする
   has_many :post_comments, dependent: :destroy
 
+  #Post_Imageモデルに対して、Favoritetモデルが1:Nになるように関連付けをする
   has_many :favorites, dependent: :destroy
+
+  #shop_nameが存在しているかを確認するバリデーション
+  validates :shop_name, presence: true
+
+  #imageが存在しているかを確認するバリデーション
+  validates :image, presence: true
 
   #get_imageメソッドを作成
   #画像が設定されない場合：app/assets/imagesに格納されているno_image.pngという画像をデフォルト画像としてをActiveStorageに格納し、格納した画像を表示する
