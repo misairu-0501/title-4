@@ -1,19 +1,33 @@
-<!--部分テンプレートファイル-->
-<% post_images.each do |post_image| %>
-<!-- @post_images → post_images -->
-  <div>
-    <!--一覧画面に詳細画面リンクを設定する(画像をクリックすると詳細画面に移動)-->
-    <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.get_image %>
-    <% end %>
-
-    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image("100x100") %></p>
-    <p>ショップ名：<%= post_image.shop_name %></p>
-    <p>説明：<%= post_image.caption %></p>
-    <p>ユーザーネーム：<%= post_image.user.name %></p>
-    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+<div class="card-list-container py-5"></div>
+  <!--部分テンプレートファイル-->
+  <% post_images.each do |post_image| %>
+  <!-- @post_images → post_images -->
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <!--一覧画面に詳細画面リンクを設定する(画像をクリックすると詳細画面に移動)-->
+      <%= link_to post_image_path(post_image.id) do %>
+        <%= image_tag post_image.get_image, class:"card-img-top"; %>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-2">
+            <%= image_tag post_image.user.get_profile_image("100x100"), class:"mt-3 rounded-circle"; %>
+          </div>
+          <div class="col-10">
+            <p class="card-title">
+              <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+                <strong><i class="far fa-flag"></i><span><%= post_image.shop_name %></span></strong>
+              <% end %>
+            </p>
+            <p class="card-text">説明：<%= post_image.caption %></p>
+            <span><i class="fas fa-user"></i>By <%= post_image.user.name %> | </span>
+            <span><%= link_to "#{post_image.post_comments.count}コメント", post_image_path(post_image.id), class:"text-dark" %></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+  <% end %>
 
-<!--1ページ分の決められた数のデータを取得(kaminri)-->
-<%= paginate post_images %>
+  <!--1ページ分の決められた数のデータを取得(kaminri)-->
+  <%= paginate post_images %>
+</div>
